@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -42,9 +43,19 @@ namespace HotelSystem
             String name = txtName.Text;
             String room = comboRoom.Text;
             int id = Convert.ToInt32(txtId.Text);
-            int checkin = Convert.ToInt32(dateIn.Text);
-            int checkout = Convert.ToInt32(dateOut.Text);
+            _ = dateIn.Text;
+            _ = dateOut.Text;
 
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = "data source = LAPTOP-UO5LH5O6; database = hotel; integrated security = True";
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection= con;
+
+            cmd.CommandText = "insert into NewCustomer values (" + id + ", '" + name + "' , '" + room + "')";
+
+            SqlDataAdapter DA = new SqlDataAdapter(cmd);
+            DataSet DS = new DataSet();
+            DA.Fill(DS);
 
         }
     }
