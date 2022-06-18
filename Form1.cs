@@ -13,6 +13,8 @@ namespace HotelSystem
 {
     public partial class Form1 : Form
     {
+       
+
         public Form1()
         {
             InitializeComponent();
@@ -31,6 +33,7 @@ namespace HotelSystem
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {
             panel1.Visible = true;
+            panel3.Visible=false;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -61,6 +64,34 @@ namespace HotelSystem
             txtName.Clear();
             comboRoom.ResetText();
 
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnCustomers_Click(object sender, EventArgs e)
+        {
+            panel3.Visible = true;
+
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = "data source = LAPTOP-UO5LH5O6; database = hotel; integrated security = True";
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+
+            cmd.CommandText = " select * from NewCustomer";
+
+            SqlDataAdapter DA = new SqlDataAdapter(cmd);
+            DataSet DS = new DataSet();
+            DA.Fill(DS);
+
+            dataGridView1.DataSource=DS.Tables[0];
+        }
+
+        private void customerId_TextChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 }
