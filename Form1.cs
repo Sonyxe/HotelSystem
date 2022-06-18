@@ -43,19 +43,23 @@ namespace HotelSystem
             String name = txtName.Text;
             String room = comboRoom.Text;
             int id = Convert.ToInt32(txtId.Text);
-            _ = dateIn.Text;
-            _ = dateOut.Text;
+            DateTime datein = dateIn.Value;
+            DateTime dateout = dateOut.Value;
 
             SqlConnection con = new SqlConnection();
             con.ConnectionString = "data source = LAPTOP-UO5LH5O6; database = hotel; integrated security = True";
             SqlCommand cmd = new SqlCommand();
             cmd.Connection= con;
 
-            cmd.CommandText = "insert into NewCustomer values (" + id + ", '" + name + "' , '" + room + "')";
+            cmd.CommandText = "insert into NewCustomer values (" + id + ", '" + name + "' , '" + room + "','" + datein.ToString() + "','" + dateout.ToString() + "')";
 
             SqlDataAdapter DA = new SqlDataAdapter(cmd);
             DataSet DS = new DataSet();
             DA.Fill(DS);
+
+            txtId.Clear();
+            txtName.Clear();
+            comboRoom.ResetText();
 
         }
     }
